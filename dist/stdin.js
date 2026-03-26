@@ -63,6 +63,10 @@ export function getBufferedPercent(stdin) {
         return 0;
     }
     const totalTokens = getTotalTokens(stdin);
+    // Return 0% when no tokens have been used (e.g., after /clear)
+    if (totalTokens === 0) {
+        return 0;
+    }
     // Scale buffer by raw usage: no buffer at ≤5% (e.g. after /clear),
     // full buffer at ≥50%. Autocompact doesn't kick in at very low usage.
     const rawRatio = totalTokens / size;
